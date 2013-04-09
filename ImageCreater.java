@@ -11,6 +11,7 @@ public class ImageCreater{
 		double maxR = 0;
 		double maxG = 0;
 		double maxB = 0;
+		double maxA = 0;
 		double r;
 		double g;
 		double b;
@@ -19,19 +20,19 @@ public class ImageCreater{
 				r = colors[i][j].getR();
 				g = colors[i][j].getG();
 				b = colors[i][j].getB();
-				if(r > maxR){
-					maxR = r;
+				if(r > maxA){
+					maxA = r;
 				}
-				if(g > maxG){
-					maxG = g;
+				if(g > maxA){
+					maxA = g;
 				}
-				if(b > maxB){
-					maxB = b;
+				if(b > maxA){
+					maxA = b;
 				}
 			}
 		}		
 
-		Color max = new Color(maxR,maxG,maxB);
+		Color max = new Color(maxA,maxA,maxA);
 
 		int[] pixels = new int[width * height];
 		int count = 0;

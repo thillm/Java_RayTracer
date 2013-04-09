@@ -4,7 +4,8 @@ import java.util.*;
 public class World{
 	private List<SceneObject> objects = new LinkedList<SceneObject>();
 	private List<Light> lights = new LinkedList<Light>();
-	private Color background = new Color(0,0,0);
+	private Color background = new Color(0.492156, 0.48431372, 1.0);
+		//private Color background = new Color(3, 3, 3.0);
 	private static final double epsilon = 0.0001;
 
 	public void addObject(SceneObject obj){

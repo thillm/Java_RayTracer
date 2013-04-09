@@ -38,38 +38,14 @@ public class Camera{
 		//Convert the camera pos to a Vector
 		Vector eye = new Vector(position.getX(),position.getY(),position.getZ());
 		//Construct the view matrix
-/*	
-		RealMatrix m2 = new Array2DRowRealMatrix(new double[][]{
-										{xAxis.getX(),   yAxis.getX(),   zAxis.getX(),   0},
-										{xAxis.getY(),   yAxis.getY(),   zAxis.getY(),   0},
-										{xAxis.getZ(),   yAxis.getZ(),   zAxis.getZ(),   0},
-										{0,				 0,				 0,				 1}
-										});
 
-		RealMatrix m1 = new Array2DRowRealMatrix(new double[][]{
-										{1,   0,   0,   -position.getX()},
-										{0,   1,   0,   -position.getY()},
-										{0,   0,   1,   -position.getZ()},
-										{0,   0,   0,   1				}
-										});
-
-		view = m2.multiply(m1);
-*/		
-/*		
 		view = new Array2DRowRealMatrix(new double[][]{
-										{xAxis.getX(),   yAxis.getX(),   zAxis.getX(),   0},
-										{xAxis.getY(),   yAxis.getY(),   zAxis.getY(),   0},
-										{xAxis.getZ(),   yAxis.getZ(),   zAxis.getZ(),   0},
-										{-eye.dot(xAxis),-eye.dot(yAxis),-eye.dot(zAxis),1}
-										});			
-*/
-		view = new Array2DRowRealMatrix(new double[][]{
-										{xAxis.getX(),   yAxis.getX(),   zAxis.getX(),   -eye.dot(xAxis)},
-										{xAxis.getY(),   yAxis.getY(),   zAxis.getY(),   -eye.dot(yAxis)},
-										{xAxis.getZ(),   yAxis.getZ(),   zAxis.getZ(),   -eye.dot(zAxis)},
+										{xAxis.getX(),   xAxis.getY(),   xAxis.getZ(),   -eye.dot(xAxis)},
+										{yAxis.getX(),   yAxis.getY(),   yAxis.getZ(),   -eye.dot(yAxis)},
+										{zAxis.getX(),   zAxis.getY(),   zAxis.getZ(),   -eye.dot(zAxis)},
 										{0,0,0,1}
 										});
-						
+
 		return view;
 	}
 
