@@ -12,6 +12,7 @@ public class Camera{
 	private static final int FILM_HEIGHT_PIXELS = 1000;
 	private static final double pixelHeigh = FILM_WIDTH_WORLD/FILM_WIDTH_PIXELS;
 	private static final double pixelWidth = FILM_HEIGHT_WORLD/FILM_HEIGHT_PIXELS;
+	private static final int SAMPLE_RATE = 3; 
 
 	public Camera(){
 		position = new Point(0,0,0);
@@ -58,15 +59,41 @@ public class Camera{
 			for(int j=0; j<FILM_WIDTH_PIXELS; j++){
 				double x = startX + j * pixelWidth;
 				double y = startY - i * pixelHeigh;
+				/*
 				Point p = new Point(x,y,-FILM_DISTANCE);
 				Vector v = p.fromPoint(origin);
 				v.normalize();
-				Ray r = new Ray(p,v);
-				Color c = w.spawnRay(r);
+				//Ray r = new Ray(p,v);
+				//Color c = w.spawnRay(r);
+				*/
+				Color c = renderPixel(w,x,y);
 				image[i][j] = c;
 			}
 		}
 		return image;
+	}
+
+	public Color renderPixel(World w, double x, double y){
+		double incX = pixelWidth/SAMPLE_RATE;
+		double incY = pixelHeigh/SAMPLE_RATE;
+		double pixelStartX = x - pixelWidth/2;
+		double pixelStartY = y + pixelHeigh/2;
+		Point origin = new Point();
+		Color colorSink = new Color(0.0,0.0,0.0);
+		for(int i = 0; i < SAMPLE_RATE; i++ ){
+			for(int j = 0; j < SAMPLE_RATE; j++){
+				double sampleX = pixelStartX + incX * i;
+				double sampleY = pixelStartY - incY * j;
+				Point p = new Point(sampleX,sampleY,-FILM_DISTANCE);
+				Vector v = p.fromPoint(origin);
+				v.normalize();
+				Ray r = new Ray(p,v);
+				Color c = w.spawnRay(r,0);
+				colorSink.addColor(c);
+			}
+		}
+		colorSink.scaleBy((1.0/(SAMPLE_RATE*SAMPLE_RATE)));
+		return colorSink;
 	}
 
 	public static void main(String[] args){

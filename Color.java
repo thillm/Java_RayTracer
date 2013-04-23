@@ -38,6 +38,12 @@ public class Color{
 		b += other.getB();
 	}
 
+	public void scaleBy(double value){
+		r = r*value;
+		g = g*value;
+		b = b*value;
+	}
+
 	public int getRGB(Color max){
 		int rgb = ((int)((r / max.getR())*255));
 		rgb = (rgb << 8) + ((int)((g / max.getG())*255));

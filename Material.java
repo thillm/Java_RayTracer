@@ -3,12 +3,15 @@ public class Material{
 	private Color diffuse;
 	private Color specular;
 	private double alpha;
+	private double reflective;
+	private double transmisive;
 
-	public Material(Color ambient, Color diffuse, Color specular, double alpha){
+	public Material(Color ambient, Color diffuse, Color specular, double alpha, double reflective){
 		this.ambient = ambient;
 		this.diffuse = diffuse;
 		this.specular = specular;
 		this.alpha = alpha;
+		this.reflective = reflective;
 	}
 
 	public Material(){
@@ -31,5 +34,9 @@ public class Material{
 
 	public double getAlpha(){
 		return alpha;
+	}
+
+	public double getReflective(){
+		return reflective;
 	}
 }

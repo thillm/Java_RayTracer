@@ -7,6 +7,7 @@ public class World{
 	private Color background = new Color(0.492156, 0.48431372, 1.0);
 		//private Color background = new Color(3, 3, 3.0);
 	private static final double epsilon = 0.0001;
+	private static final int MAX_DEPTH = 5;
 
 	public void addObject(SceneObject obj){
 		objects.add(obj);
@@ -42,8 +43,8 @@ public class World{
 	}
 
 
-	public Color spawnRay(double x, double y, double z, double rx, double ry, double rz){
-		return spawnRay(new Ray(x,y,z,rx,ry,rz));
+	public Color spawnRay(double x, double y, double z, double rx, double ry, double rz, int depth){
+		return spawnRay(new Ray(x,y,z,rx,ry,rz),depth);
 	}
 
 	public IntersectData findClosestIntersection(Ray r){
@@ -62,7 +63,7 @@ public class World{
 		return closestIntersect;
 	}
 
-	public Color spawnRay(Ray r){
+	public Color spawnRay(Ray r, int depth){
 		
 		Color rayColor = background;
 		IntersectData closestIntersect = findClosestIntersection(r);
@@ -81,6 +82,18 @@ public class World{
 			}
 			//Find Ray color
 			rayColor = PhongIllumination.illuminate(closestIntersect);
+
+			//Recursively spawn rays for reflection
+			double reflectivity = closestIntersect.getMaterial().getReflective();
+			if(reflectivity > 0 && depth < MAX_DEPTH){
+				Vector norm = closestIntersect.getNormal();
+				Vector reflectRayDir = rayDir.subtract(norm.scale(2*(norm.dot(rayDir))));
+				reflectRayDir.normalize();
+				Ray reflectRay = new Ray(closestIntersect.getIntersectPoint(),reflectRayDir);
+				Color reflectColor = spawnRay(reflectRay,depth+1);
+				reflectColor.scaleBy(reflectivity);
+				rayColor.addColor(reflectColor);
+			}
 		}
 		return rayColor;
 	}
