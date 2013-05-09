@@ -59,13 +59,6 @@ public class Camera{
 			for(int j=0; j<FILM_WIDTH_PIXELS; j++){
 				double x = startX + j * pixelWidth;
 				double y = startY - i * pixelHeigh;
-				/*
-				Point p = new Point(x,y,-FILM_DISTANCE);
-				Vector v = p.fromPoint(origin);
-				v.normalize();
-				//Ray r = new Ray(p,v);
-				//Color c = w.spawnRay(r);
-				*/
 				Color c = renderPixel(w,x,y);
 				image[i][j] = c;
 			}
@@ -87,7 +80,7 @@ public class Camera{
 				Point p = new Point(sampleX,sampleY,-FILM_DISTANCE);
 				Vector v = p.fromPoint(origin);
 				v.normalize();
-				Ray r = new Ray(p,v);
+				Ray r = new Ray(p,v,1.0);
 				Color c = w.spawnRay(r,0);
 				colorSink.addColor(c);
 			}

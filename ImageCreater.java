@@ -5,13 +5,10 @@ import javax.imageio.*;
 public class ImageCreater{
 	private static final String FILE_LOCATION = "./pictures/";
 
-	public static void makeImage(Color[][] colors,String fileName){
+	public static void makeImage(Color[][] colors,double ldMax, String fileName){
 		int width = colors[0].length;
 		int height = colors.length;
-		double maxR = 0;
-		double maxG = 0;
-		double maxB = 0;
-		double maxA = 0;
+		double maxA = ldMax;
 		double r;
 		double g;
 		double b;
@@ -33,12 +30,14 @@ public class ImageCreater{
 		}		
 
 		Color max = new Color(maxA,maxA,maxA);
-
+		
 		int[] pixels = new int[width * height];
 		int count = 0;
 		for(int i=0; i < height; i++){
 			for(int j=0; j < width; j++){
-				pixels[count] = colors[i][j].getRGB(max);
+				int rgb = colors[i][j].getRGB(max);
+				//System.out.println("RGB: "+rgb);
+				pixels[count] = rgb;
 				count++;
 			}
 		}
@@ -66,6 +65,6 @@ public class ImageCreater{
 				}
 			}
 		}
-		makeImage(colors,"TestImage.png");
+		makeImage(colors,1.0,"TestImage.png");
 	}
 }

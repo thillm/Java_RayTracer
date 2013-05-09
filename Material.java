@@ -4,14 +4,17 @@ public class Material{
 	private Color specular;
 	private double alpha;
 	private double reflective;
-	private double transmisive;
+	private double transmissive;
+	private double indexOfRefraction;
 
-	public Material(Color ambient, Color diffuse, Color specular, double alpha, double reflective){
+	public Material(Color ambient, Color diffuse, Color specular, double alpha, double reflective, double transmissive, double index){
 		this.ambient = ambient;
 		this.diffuse = diffuse;
 		this.specular = specular;
 		this.alpha = alpha;
 		this.reflective = reflective;
+		this.transmissive = transmissive;
+		this.indexOfRefraction = index;
 	}
 
 	public Material(){
@@ -38,5 +41,13 @@ public class Material{
 
 	public double getReflective(){
 		return reflective;
+	}
+
+	public double getTransmissive(){
+		return transmissive;
+	}
+
+	public double getIndex(){
+		return indexOfRefraction;
 	}
 }

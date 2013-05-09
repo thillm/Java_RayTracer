@@ -108,7 +108,8 @@ public class Triangle implements SceneObject{
 				Point intersectPoint = new Point(x,y,z);
 				Vector norm = e1.cross(e2);
 				norm.normalize();
-				Material mat = mandlebrot(u,v);
+				//Material mat = mandlebrot(u,v);
+				Material mat = checkerShader(u,v);
 				data = new IntersectData(intersectPoint,t,mat,norm);
 			}
 		}
